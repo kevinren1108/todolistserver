@@ -1,3 +1,4 @@
+const { request, response } = require('express')
 const express = require('express')
 const app = express()
 app.use(express.json())
@@ -35,11 +36,20 @@ app.get('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id)
   const note = notes.find(note => note.id === id)
   if(note){
-    response.json(note)
+    response.json(note);
   }else{
     response.status(404).send('Note not existing');
+  }
+})
 
-  }  
+app.get('/info', (request, response) => {
+  const noteCount = notes.length
+  response.send(
+    `
+      <p>Note has info for ${noteCount} notes</p> 
+      <p>${new Date()}</p>
+    `
+  );
 })
 
 app.delete('/api/notes/:id', (request, response) => {
@@ -75,7 +85,7 @@ app.post('/api/notes', (request, response) => {
   response.json(note)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
