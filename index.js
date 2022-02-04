@@ -25,7 +25,15 @@ let notes = [
 ]
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
+  res.send(
+    `
+      <h1>A todolist backend server build with express.js</h1>
+      <p>Aviliable APIs</p>
+      <a herf="https://todolistserver1.herokuapp.com/api/notes">Get all list</a>
+      <a herf="https://todolistserver1.herokuapp.com/api/notes/1">Get todo item with id</a>
+      <a herf="https://todolistserver1.herokuapp.com/info">Get api info</a>
+    `
+  )
 })
 
 app.get('/api/notes', (req, res) => {
