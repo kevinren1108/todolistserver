@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
     `
       <h1>A todolist backend server build with express.js</h1>
       <p>Aviliable APIs</p>
-      <a href='/api/notes'>Get all list</a>
+      <a href='./api/notes'>Get all list</a>
       </br>
-      <a href='/info'>Get api info</a>
+      <a href='./info'>Get api info</a>
     `
   )
 })
@@ -28,13 +28,14 @@ app.get('/api/notes', (request, response) => {
 
 
 app.get('/info', (request, response) => {
-  const noteCount = Note.length
-  response.send(
-    `
-      <p>Note has info for ${noteCount} notes</p> 
-      <p>${new Date()}</p>
-    `
-  );
+  Note.count({}).then(count => {
+    response.send(
+      `
+        <p>Note has info for ${count} notes</p> 
+        <p>${new Date()}</p>
+      `
+    );
+  })
 })
 
 app.delete('/api/notes/:id', (request, response) => {
